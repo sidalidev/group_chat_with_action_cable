@@ -24,7 +24,12 @@
 
   </div>
   <div class='col-span-3 pt-6'>
+    <%= render @channel.messages %>
+
     <% if current_user.channels.include?(@channel) %>
+      <%= form_with model: [@channel, Message.new] do |form| %>
+        <%= form.text_field :body %>
+      <% end %>
     <% else %>
       <%= link_to "Join #{@channel.name}", channel_channel_user_path(@channel), method: :post %>
     <% end %>
