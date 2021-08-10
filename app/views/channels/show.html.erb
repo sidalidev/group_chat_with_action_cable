@@ -1,9 +1,32 @@
-<p id="notice"><%= notice %></p>
+<div class='grid grid-cols-4 gap-6'>
+  <div class='col-span-1'>
+    <div class='mb-2 flex justify-between items-center'>
+      <h3 class='inline'>Channels</h3>
+      <%= link_to fa_icon('plus'), new_channel_path %>
+    </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @channel.name %>
-</p>
+    <% Channel.all.each do |channel| %>
+      <div class='mb-2 flex justify-between items-center'>
+        <%= link_to channel.name, channel %>
+        <% if current_user.channels.include?(channel) %>
+          <%= link_to fa_icon('times', class: 'text-red-400'), channel_channel_user_path(channel), method: :delete %> 
+        <% end %>
+      </div>
+    <% end %>
+    <div>
+      <h3>Users</h3>
+    </div>
+    <% @channel.users.each do |user| %>
+      <div>
+        <%= user.email %>
+      </div>
+    <% end %>
 
-<%= link_to 'Edit', edit_channel_path(@channel) %> |
-<%= link_to 'Back', channels_path %>
+  </div>
+  <div class='col-span-3 pt-6'>
+    <% if current_user.channels.include?(@channel) %>
+    <% else %>
+      <%= link_to "Join #{@channel.name}", channel_channel_user_path(@channel), method: :post %>
+    <% end %>
+  </div>
+</div>

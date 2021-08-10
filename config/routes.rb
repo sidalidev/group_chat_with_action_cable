@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :channels
+  resources :channels do
+    resource :channel_user # Singular, if we want to create/delete a user channel, we will operate on the current user without passin an extra ID for the user itself.
+  end
+
   devise_for :users
 
   root to: 'channels#index'
