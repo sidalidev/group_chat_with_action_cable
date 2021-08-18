@@ -12,6 +12,10 @@ export default class extends Controller {
     })
   }
 
+  disconnect() {
+    consumer.subscriptions.remove(this.subscription)
+  }
+
   _connected() {
 
   }
