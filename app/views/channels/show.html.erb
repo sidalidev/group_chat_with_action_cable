@@ -7,7 +7,7 @@
 
     <% Channel.all.each do |channel| %>
       <div class='mb-2 flex justify-between items-center'>
-        <%= link_to channel.name, channel %>
+        <%= link_to channel.name, channel, data: { controller: 'unreads', unreads_id: channel.id } %>
         <% if current_user.channels.include?(channel) %>
           <%= link_to fa_icon('times', class: 'text-red-400'), channel_channel_user_path(channel), method: :delete %> 
         <% end %>
